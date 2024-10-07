@@ -16,9 +16,8 @@ function App() {
   
     height:'80vh', 
     width:'80vw',
-    backgroundColor:'blue'}}>
-      
-    <ContentBox />
+    backgroundColor:'antiquewhite'}}>
+
     <LoginBox />
     
     </Container>
