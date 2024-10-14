@@ -1,12 +1,18 @@
 import { useState } from 'react'
-import {Container, Typography, Box, FormControl, TextField, Button} from "@mui/material"
+import {Container, Typography, Box, FormControl, InputLabel,TextField, Button, InputAdornment, IconButton, FilledInput, OutlinedInput} from "@mui/material"
 import LoginIcon from '@mui/icons-material/Login'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginBox(){
    
     const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")   
+
+    const [password, setPassword] = useState("")
+
     const [user, setUser] = useState({ 
         user_name : username,
         user_pass : password})
@@ -21,7 +27,21 @@ export default function LoginBox(){
         setUser(updatedValue)
         console.log(user)
     }
-
+    //To navigate to signup page
+    const nav = useNavigate()
+    const routeSignup =()=>{
+        nav('/signup')
+    }
+    //To show/hide the password input
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+      };
+    
+      const handleMouseUpPassword = (event) => {
+        event.preventDefault();
+      };
     return(
         <Box sx={{display: 'flex',
             flexDirection:'column', 
@@ -45,24 +65,41 @@ export default function LoginBox(){
                 
                 <FormControl onSubmit={onSubmitHandler}>
 
-                    <TextField id="outlined-username-input" 
-                    required 
-                    label={"Username"}
-                    variant="filled"
-                    color='success'
-                    margin='normal'
-                    focused
-                    sx={{ input: { color: 'white' } }}
-                    onChange={(e)=>{{setUsername(e.target.value), console.log(username)}}}> </TextField>
+                    <FormControl variant='outlined'>
 
-                    <TextField id="outlined-password-input" 
-                    required label="Password" 
-                    variant="filled"
-                    color='success'
-                    focused
-                    margin='normal'
-                    sx={{ input: { color: 'white' } }}
-                    onChange={(e)=>{setPassword(e.target.value)}}> </TextField>
+                        <OutlinedInput
+                        type='text'
+                        placeholder='Username'
+                        required
+                        sx={{ input: { color: 'white' }, placeholder:{color:'white'}}}
+                        onChange={(e)=>{{setUsername(e.target.value), console.log(username)}}}>
+                        </OutlinedInput>
+
+                    </FormControl>
+                    
+                    <FormControl>
+                        <OutlinedInput 
+                        placeholder='Password'
+                        type={showPassword ? 'text' : 'password'}
+                        onChange={(e)=>{setPassword(e.target.value)}}
+                        sx={{margin: "" ,input: { color: 'white' }, label:{color:'white'}, placeholder:{color:'white'}}}
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility" 
+                                sx={{color: "white"}}
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                onMouseUp={handleMouseUpPassword}
+                                edge="end">
+                                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }>
+                            
+                        </OutlinedInput>
+
+                    </FormControl>
 
                     <Button id="login_button"
                     variant="contained" 
@@ -84,7 +121,13 @@ export default function LoginBox(){
                 Don't have an account yet?
                 </Typography>
                 
-                <Button id="login_button" variant="contained" color="secondary" startIcon={<AutoAwesomeIcon />}>Sign Up</Button>
+                <Button 
+                id="login_button" 
+                variant="contained" 
+                color="secondary" 
+                startIcon={<AutoAwesomeIcon />}
+                onClick={routeSignup}
+                >Sign Up</Button>
             </Box>
 
         </Box> 
@@ -94,10 +137,31 @@ export default function LoginBox(){
 export function ContentBox(){
     return(
     <Box sx={{
-        backgroundImage: "url(https://t3.ftcdn.net/jpg/09/88/66/02/240_F_988660289_N6poGENEXmJ6ZfzRifemSOSCNqcxIM9b.jpg)",
-        backgroundRepeat: "no-repeat",
-        objectFit:'cover'}}>
-
+        display: 'flex',
+        flexDirection:'column', 
+        justifyContent:'center', 
+        alignItems:'center',
+        height:'70vh',
+        color:'white',
+        margin:'1em',
+        backgroundColor:'black'}}>
+            <Typography component="h1"
+                variant="h4"
+                sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
+                    GloballyU is a platform for international students
+                </Typography>
     </Box>
     )  
 }
+
+
+
+{/* <TextField id="outlined-password-input" 
+                    required label="Password" 
+                    variant="filled"
+                    color='success'
+                    focused
+                    margin='normal'
+                    sx={{ input: { color: 'white' } }}
+                    onChange={(e)=>{setPassword(e.target.value)}}> 
+                    </TextField> */}
