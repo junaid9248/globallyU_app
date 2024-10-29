@@ -1,10 +1,20 @@
 import { useState } from 'react'
 import {Container, Typography, Box, FormControl, InputLabel,TextField, Button, InputAdornment, IconButton, FilledInput, OutlinedInput, FormHelperText, MenuItem} from "@mui/material"
 import { DatePicker } from '@mui/x-date-pickers'
-import Autocomplete from '@mui/material/Autocomplete';
-
+import Autocomplete from '@mui/material/Autocomplete'
+import PasswordChecklist from "react-password-checklist"
 
 export default function Signup(){
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordAgain, setPasswordAgain] = useState("")
+
+  const [userdetails, setUserdetails] = useState({
+    name: username,
+    pass: password
+
+  })
 
     return(
         <Box sx={{display: 'flex',
@@ -68,10 +78,22 @@ export default function Signup(){
                 <OutlinedInput
                 type='text'
                 placeholder='Username'
+                onChange={(e)=>{setUsername(e.target.value)}}
                 sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
                             
-                <FormHelperText variant='outlined'
-                sx={{color:'white'}}> Username can only contain <b> . </b>, <b> _ </b>, <b> - </b> ,<b> @ </b> special characters  </FormHelperText>
+
+            <PasswordChecklist rules={["minLength", "noSpaces", "specialChar"]}
+                              value={username}
+                              minLength={5}
+                              maxLength={50}
+                              specialCharsRegex={/[.@$_]/g}
+                              onChange={(isValid) => {}}
+
+                              messages={{minLength:"Username must be minimum of 5 characters", 
+                                        noSpaces:"Username cannot contain any spaces",
+                                        specialChar:"Username can only contain . , @ and $ special character"
+                              }}
+                            />
 
             </FormControl>
 
@@ -80,13 +102,29 @@ export default function Signup(){
                 <OutlinedInput
                 type='text'
                 placeholder='Password'
+                onChange={(e)=>{setPassword(e.target.value)}}
                 sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
-                <FormHelperText variant='outlined'
-                sx={{color:'white'}}>  Password must be minimum of 5 characters </FormHelperText>
-                <FormHelperText variant='outlined'
-                sx={{color:'white'}}> Must include alphanumeric characters only </FormHelperText>
-                <FormHelperText variant='outlined'
-                sx={{color:'white'}}> Must include one uppercase and one lowercase letter </FormHelperText>
+
+              <OutlinedInput
+                type='text'
+                placeholder='Enter password again'
+                onChange={(e)=>{setPasswordAgain(e.target.value)}}
+                sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+
+                <PasswordChecklist rules={["minLength", "specialChar", "capitalAndLowercase","letter", "noSpaces", "number" ,"match"]}
+                  value={password}
+                  valueAgain={passwordAgain}
+
+                  minLength={8}
+                  onChange={(isValid) => {}}
+
+                  messages={{minLength:"Password must be minimum of 8 characters", 
+                            capitalAndLowercase:"Password must have atleast one uppercase and one lowercase letter",
+                            noSpaces:"Password cannot contain any spaces",
+                            number:"Password must contain atleast one number",
+                            match: "Passwords must match"
+                  }}
+                />
 
             </FormControl>
             <Button id="login_button"
