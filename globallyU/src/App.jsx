@@ -25,7 +25,7 @@ function App() {
             width:'80vw',
             backgroundColor:'antiquewhite'}}>
       
-            <ContentBox />
+          
             <LoginBox />
       
           </Container>}/>

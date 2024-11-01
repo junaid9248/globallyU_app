@@ -6,11 +6,27 @@ import PasswordChecklist from "react-password-checklist"
 
 export default function Signup(){
 
+  const [fname, setFname] = useState("")
+  const [lname, setLname] = useState("")
+  const [dob, setDOB] = useState()
+  const [nationality, setNationality]= useState("")
+  const [year, setYear] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [passwordAgain, setPasswordAgain] = useState("")
 
+  const [personaldetails, setPersonaldetails] = useState({
+
+    first: fname,
+    last: lname,
+    dob: dob,
+    nat: nationality,
+    yr: year
+
+  })
+
   const [userdetails, setUserdetails] = useState({
+    
     name: username,
     pass: password
 
@@ -40,6 +56,7 @@ export default function Signup(){
                 <OutlinedInput
                 type='text'
                 placeholder='First Name'
+                onChange={(e)=>{setFname(e.target.value)}}
                 sx={{background:{color:'white'}, input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
             </FormControl>
 
@@ -47,12 +64,14 @@ export default function Signup(){
             <OutlinedInput
                 type='text'
                 placeholder='Last Name'
+                onChange={(e)=>{setLname(e.target.value)}}
                 sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
             </FormControl>
 
             <FormControl color='white'>
                 <FormHelperText> Date of Birth </FormHelperText>
                 <DatePicker
+                onChange={(e)=>{setDOB(e.target.value)}}
                 sx={{input:{color:'white'}, width:'100%'}} />
             </FormControl>
             
