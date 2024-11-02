@@ -5,31 +5,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import LoginBox from './login_page/login'
-import { ContentBox } from './login_page/login'
 import Signup from './signup_page/signup'
 
 function App() {
 
   return (
+    
 <LocalizationProvider dateAdapter={AdapterDayjs}> 
     <BrowserRouter>
       <Routes>
-        <Route path='/' 
-        element={
-          <Container 
-            sx={{display: 'flex', 
-            flexDirection: 'row', 
-            justifyContent:'space-evenly', 
-            alignItems:'center', 
-            height:'80vh', 
-            width:'80vw',
-            backgroundColor:'antiquewhite'}}>
-      
-          
-            <LoginBox />
-      
-          </Container>}/>
-
+        
+        <Route path='/' element={<LoginBox />}/>
         <Route path ='signup' element={<Signup />}/>
           
       </Routes>

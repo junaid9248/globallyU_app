@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import {Container, Typography, Box, FormControl, InputLabel,TextField, Button, InputAdornment, IconButton, FilledInput, OutlinedInput, FormHelperText, MenuItem} from "@mui/material"
+import {createTheme,ThemeProvider, Typography, Box, FormControl,TextField, Button, OutlinedInput, FormHelperText, MenuItem} from "@mui/material"
 import { DatePicker } from '@mui/x-date-pickers'
 import Autocomplete from '@mui/material/Autocomplete'
 import PasswordChecklist from "react-password-checklist"
+import { pink } from '@mui/material/colors';
 
 export default function Signup(){
 
@@ -32,20 +33,38 @@ export default function Signup(){
 
   })
 
+  const myTheme = createTheme({
+
+    palette:{
+
+        primary:{
+            light: '#f9f9f9',
+            dark:'#141414',
+            main: "#4a148c"
+
+        },
+        secondary:{
+            main: pink[700]}
+    }
+})
+
     return(
+      <ThemeProvider theme={myTheme}> 
         <Box sx={{display: 'flex',
-            flexDirection:'column', 
+            flexDirection:'row', 
             justifyContent:'center', 
             alignItems:'center',
-            maxWidth:'70vw',}}>
+            height:'90vh',
+            maxWidth:'70vw'}}>
         <Box
         sx={{display: 'flex',
             flexDirection:'column', 
             justifyContent:'center', 
             alignItems:'center',
-            backgroundColor:'black',
+            backgroundColor:'primary.dark',
+            minWidth:'30vw',
             borderRadius:'10px',
-            margin:'1rem',
+            margin:'1rem 0rem',
             padding:"1rem"}}>
 
             <Typography component="h1" variant="h4"
@@ -87,7 +106,7 @@ export default function Signup(){
             alignItems:'center',
             backgroundColor:'black',
             borderRadius:'10px',
-            margin:'1rem',
+            margin:'1rem 0rem',
             padding:"1rem"}}>
             <Typography component="h1" variant="h4"
                     sx={{ width: '100%', fontSize: 'clamp(1.5rem, 2.15rem)' }}> User profile details </Typography>
@@ -146,12 +165,10 @@ export default function Signup(){
                 />
 
             </FormControl>
-            <Button id="login_button"
-                    variant="contained" 
-                    color="success"> Create my account </Button>
         </Box>
 
         </Box>
+        </ThemeProvider>
     )
 }
 
@@ -163,7 +180,7 @@ const years =[ {value: 'Freshman'},
 function YearSelect(){
     return(
     
-        <TextField 
+        <TextField cotrolled
         id='outlined-year-select'
         select
         sx={{width:'100%', input:{color: 'white'}}}

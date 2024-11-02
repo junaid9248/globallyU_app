@@ -1,13 +1,28 @@
 import { useState } from 'react'
-import {Container, Typography, Box, FormControl, Button, InputAdornment, IconButton, OutlinedInput} from "@mui/material"
+import { Typography, Box, FormControl, Button, InputAdornment, IconButton,createTheme, OutlinedInput, ThemeProvider} from "@mui/material"
 import LoginIcon from '@mui/icons-material/Login'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+import { pink, lightGreen } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginBox(){
+
+    const myTheme = createTheme({
+
+        palette:{
+    
+            primary:{
+                light: '#f9f9f9',
+                dark:'#ff3131',
+                main: "#4a148c"
+    
+            },
+            secondary:{
+                main: pink[700]}
+        },
+    })
    
     const [username, setUsername] = useState("")
 
@@ -44,23 +59,26 @@ export default function LoginBox(){
       };
       
     return(
+        <ThemeProvider theme={myTheme}>
         <Box sx={{display: 'flex',
-            flexDirection:'column', 
+            flexDirection:'row-reverse', 
             justifyContent:'center', 
             alignItems:'center',
-            backgroundColor:'black',
-            padding:"1rem",
-            height:'70vh'}}>
+            backgroundColor:'primary.light',
+            padding:"1rem",}}>
 
             <Box sx={{display: 'flex',
             flexDirection:'column', 
             justifyContent:'center', 
             alignItems:'center',
+            backgroundColor:'primary.main',
+            height:'90vh',
+            borderRadius:'0px 16px 16px 0px'
             }}>
 
                 <Typography component="h1"
                 variant="h4"
-                sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
+                sx={{ fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
                 Welcome Back!
                 </Typography>
                 
@@ -110,13 +128,11 @@ export default function LoginBox(){
                     
                 </FormControl>
 
-            </Box> 
-
-            <Box sx={{display: 'flex',
-            flexDirection:'column', 
-            justifyContent:'center', 
-            alignItems:'center',
-            margin:"1rem"}}>
+                <Box sx={{display: 'flex',
+                        flexDirection:'column', 
+                        justifyContent:'center', 
+                        alignItems:'center',
+                        margin:"1rem"}}>
                 <Typography component="h1"
                 sx={{ width: '100%', fontSize: 'clamp(1rem, 5vw, 1.5rem)' }}>
                 Don't have an account yet?
@@ -129,40 +145,23 @@ export default function LoginBox(){
                 startIcon={<AutoAwesomeIcon />}
                 onClick={routeSignup}
                 >Sign Up</Button>
+                </Box>
+
+            </Box> 
+
+
+            <Box
+            sx={{
+                backgroundImage:"url('public/logincover1.jpg')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                borderRadius:" 16px 0px 0px 16px",
+                height: "90vh",
+                width: "70vw"
+            }}>
             </Box>
 
         </Box> 
+        </ThemeProvider>
     )
 }
-
-export function ContentBox(){
-    return(
-    <Box sx={{
-        display: 'flex',
-        flexDirection:'column', 
-        justifyContent:'center', 
-        alignItems:'center',
-        height:'70vh',
-        color:'white',
-        margin:'1em',
-        backgroundColor:'black'}}>
-            <Typography component="h1"
-                variant="h4"
-                sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}>
-                    GloballyU is a platform for international students
-                </Typography>
-    </Box>
-    )  
-}
-
-
-
-{/* <TextField id="outlined-password-input" 
-                    required label="Password" 
-                    variant="filled"
-                    color='success'
-                    focused
-                    margin='normal'
-                    sx={{ input: { color: 'white' } }}
-                    onChange={(e)=>{setPassword(e.target.value)}}> 
-                    </TextField> */}
