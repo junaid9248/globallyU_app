@@ -3,7 +3,7 @@ import {createTheme,ThemeProvider, Typography, Box, FormControl,TextField, Butto
 import { DatePicker } from '@mui/x-date-pickers'
 import Autocomplete from '@mui/material/Autocomplete'
 import PasswordChecklist from "react-password-checklist"
-import { pink } from '@mui/material/colors';
+import { red } from '@mui/material/colors';
 
 export default function Signup(){
 
@@ -39,13 +39,44 @@ export default function Signup(){
 
         primary:{
             light: '#f9f9f9',
-            dark:'#141414',
+            dark:'#460071',
             main: "#4a148c"
 
         },
         secondary:{
-            main: pink[700]}
-    }
+            main: red[800]}
+    },
+
+    components:{
+
+      MuiOutlinedInput:{
+        styleOverrides:{
+          
+          input:{ backgroundColor:'#f9f9f9', minWidth:'35vw', margin:'0.5em',},
+
+          root:{boxSizing:'border-box',}
+        }
+      },
+    
+      
+      MuiAutocomplete:{
+        
+        styleOverrides:{
+
+          root:{
+            backgroundColor:'#f9f9f9', minWidth:'35vw', margin:'0.5em'
+          },
+
+          paper:{
+            backgroundColor:'#f9f9f9', minWidth:'35vw'
+          }
+
+        }
+       
+      }
+    },
+
+   
 })
 
     return(
@@ -54,82 +85,86 @@ export default function Signup(){
             flexDirection:'row', 
             justifyContent:'center', 
             alignItems:'center',
-            height:'90vh',
-            maxWidth:'70vw'}}>
-        <Box
+            minWidth:'35vw',
+            minHeight:'90vh'
+            }}>
+        
+        <Box label="personal-details-box"
         sx={{display: 'flex',
             flexDirection:'column', 
             justifyContent:'center', 
             alignItems:'center',
             backgroundColor:'primary.dark',
-            minWidth:'30vw',
-            borderRadius:'10px',
+            minWidth:'35vw',
+            minHeight:"90vh",
+            borderRadius:'16px 0px 0px 16px',
             margin:'1rem 0rem',
-            padding:"1rem"}}>
+            padding:"0.5rem"}}>
 
             <Typography component="h1" variant="h4"
-                sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}> Personal details </Typography>
+                sx={{ width: '100%', fontSize: 'clamp(1.5rem, 2rem)' }}> Personal details </Typography>
             
             <FormControl variant='outlined'>
-            <FormHelperText variant='outlined'> First Name </FormHelperText>
+            
                 <OutlinedInput
                 type='text'
                 placeholder='First Name'
                 onChange={(e)=>{setFname(e.target.value)}}
-                sx={{background:{color:'white'}, input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+                sx={{}} />
             </FormControl>
 
             <FormControl>
             <OutlinedInput
                 type='text'
                 placeholder='Last Name'
-                onChange={(e)=>{setLname(e.target.value)}}
-                sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+                onChange={(e)=>{setLname(e.target.value)}} />
             </FormControl>
 
-            <FormControl color='white'>
-                <FormHelperText> Date of Birth </FormHelperText>
+            <FormControl>
                 <DatePicker
                 onChange={(e)=>{setDOB(e.target.value)}}
-                sx={{input:{color:'white'}, width:'100%'}} />
+                sx={{
+                  backgroundColor:"primary.light", 
+                minWidth:'1vw', 
+                margin:"0.5em" }}/>
             </FormControl>
             
-            <ConutrySelect />
+            <ConutrySelect margins='0.5rem' minwidth='35vw'/>
             
-           <YearSelect/>
+           <YearSelect margins='0.5rem' minwidth='35vw'/>
+
         </Box>
+        
 
         <Box 
          sx={{display: 'flex',
             flexDirection:'column', 
             justifyContent:'center', 
             alignItems:'center',
-            backgroundColor:'black',
-            borderRadius:'10px',
+            background: "linear-gradient(76.8deg, rgb(121, 45, 129) 3.6%, rgb(36, 31, 98) 90.4%)",
+            borderRadius:'0px 16px 16px 0px' ,
+            height:'90vh',
             margin:'1rem 0rem',
-            padding:"1rem"}}>
+            padding:'0.5rem'}}>
             <Typography component="h1" variant="h4"
-                    sx={{ width: '100%', fontSize: 'clamp(1.5rem, 2.15rem)' }}> User profile details </Typography>
+                    sx={{ width: '100%', fontSize: 'clamp(1.5rem, 2rem)' }}> User profile details </Typography>
             
             <FormControl>
-            <FormHelperText variant='outlined'> Username </FormHelperText>
                 <OutlinedInput
                 type='text'
                 placeholder='Username'
-                onChange={(e)=>{setUsername(e.target.value)}}
-                sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+                onChange={(e)=>{setUsername(e.target.value)}}/>
                             
 
             <PasswordChecklist rules={["minLength", "noSpaces", "specialChar"]}
                               value={username}
                               minLength={5}
                               maxLength={50}
-                              specialCharsRegex={/[.@$_]/g}
                               onChange={(isValid) => {}}
 
                               messages={{minLength:"Username must be minimum of 5 characters", 
                                         noSpaces:"Username cannot contain any spaces",
-                                        specialChar:"Username can only contain . , @ and $ special character"
+                                        specialChar:"Username must contain a special character"
                               }}
                             />
 
@@ -141,13 +176,13 @@ export default function Signup(){
                 type='text'
                 placeholder='Password'
                 onChange={(e)=>{setPassword(e.target.value)}}
-                sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+                sx={{}} />
 
               <OutlinedInput
                 type='text'
                 placeholder='Enter password again'
                 onChange={(e)=>{setPasswordAgain(e.target.value)}}
-                sx={{ input: { color: 'white' }, placeholder:{color:'white'}, width:'100%'}} />
+                sx={{ }} />
 
                 <PasswordChecklist rules={["minLength", "specialChar", "capitalAndLowercase","letter", "noSpaces", "number" ,"match"]}
                   value={password}
@@ -165,10 +200,15 @@ export default function Signup(){
                 />
 
             </FormControl>
+
+            <Button variant='contained' color='success'>
+              Create my account
+            </Button>
         </Box>
 
         </Box>
         </ThemeProvider>
+
     )
 }
 
@@ -177,13 +217,12 @@ const years =[ {value: 'Freshman'},
     {value: 'Senior'}, {value: 'Graduate'}, 
     {value: 'Doctoral'}]    
 
-function YearSelect(){
+function YearSelect(props){
     return(
     
         <TextField cotrolled
         id='outlined-year-select'
         select
-        sx={{width:'100%', input:{color: 'white'}}}
         label='Year in school'>
             {years.map((option)=>(
                 <MenuItem key={option.key} value={option.value}>
@@ -195,12 +234,12 @@ function YearSelect(){
 
 }
 
-function ConutrySelect(){
+function ConutrySelect(props){
     
     return(
         <Autocomplete
         id="country-select-demo"
-        sx={{ input:{color: 'white'}, width:'100%'}}
+       
         options={countries}
         autoHighlight
         getOptionLabel={(option) => option.label}

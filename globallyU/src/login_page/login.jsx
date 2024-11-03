@@ -4,7 +4,7 @@ import LoginIcon from '@mui/icons-material/Login'
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { pink, lightGreen } from '@mui/material/colors';
+import { red, lightGreen } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginBox(){
@@ -15,17 +15,30 @@ export default function LoginBox(){
     
             primary:{
                 light: '#f9f9f9',
-                dark:'#ff3131',
+                dark:'#460071',
                 main: "#4a148c"
     
             },
             secondary:{
-                main: pink[700]}
+                main: red[800]}
         },
+
+        components:{
+
+            MuiOutlinedInput:{
+                
+                input:{color:"#4a148c"},
+
+                styleOverrides:{
+                    root:{
+                        margin:"0.2em"
+                    }
+                }
+            }
+        }
     })
    
     const [username, setUsername] = useState("")
-
     const [password, setPassword] = useState("")
 
     const [user, setUser] = useState({ 
@@ -67,12 +80,14 @@ export default function LoginBox(){
             backgroundColor:'primary.light',
             padding:"1rem",}}>
 
-            <Box sx={{display: 'flex',
+            <Box label="login-box"  
+            sx={{display: 'flex',
             flexDirection:'column', 
             justifyContent:'center', 
             alignItems:'center',
-            backgroundColor:'primary.main',
-            height:'90vh',
+            background: "linear-gradient(76.8deg, rgb(121, 45, 129) 3.6%, rgb(36, 31, 98) 90.4%)",
+            minHeight:'90vh',
+            width:"25vw",
             borderRadius:'0px 16px 16px 0px'
             }}>
 
@@ -82,15 +97,17 @@ export default function LoginBox(){
                 Welcome Back!
                 </Typography>
                 
-                <FormControl onSubmit={onSubmitHandler}>
+                <FormControl 
+                onSubmit={onSubmitHandler}>
 
-                    <FormControl variant='outlined'>
+                    <FormControl 
+                    variant='outlined'>
 
                         <OutlinedInput
                         type='text'
                         placeholder='Username'
                         required
-                        sx={{ input: { color: 'white' }, placeholder:{color:'white'}}}
+                        sx ={{backgroundColor:"primary.light"}}
                         onChange={(e)=>{{setUsername(e.target.value), console.log(username)}}}>
                         </OutlinedInput>
 
@@ -101,12 +118,12 @@ export default function LoginBox(){
                         placeholder='Password'
                         type={showPassword ? 'text' : 'password'}
                         onChange={(e)=>{setPassword(e.target.value)}}
-                        sx={{margin: "" ,input: { color: 'white' }, label:{color:'white'}, placeholder:{color:'white'}}}
+                        sx={{margin: "" , backgroundColor:'primary.light', label:{color:'white'}, placeholder:{color:'white'}}}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
                                 aria-label="toggle password visibility" 
-                                sx={{color: "white"}}
+                                sx={{color: "primary.main"}}
                                 onClick={handleClickShowPassword}
                                 onMouseDown={handleMouseDownPassword}
                                 onMouseUp={handleMouseUpPassword}

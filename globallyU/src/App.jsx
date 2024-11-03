@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import LoginBox from './login_page/login'
 import Signup from './signup_page/signup'
-
+import Home from './homepage/home';
 function App() {
 
   return (
@@ -17,7 +17,7 @@ function App() {
         
         <Route path='/' element={<LoginBox />}/>
         <Route path ='signup' element={<Signup />}/>
-          
+        <Route path='home' element={<Home />} />
       </Routes>
     </BrowserRouter>
     </LocalizationProvider>
