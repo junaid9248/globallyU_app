@@ -6,6 +6,8 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { red, lightGreen } from '@mui/material/colors';
 import { useNavigate } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function LoginBox(){
 
@@ -28,18 +30,16 @@ export default function LoginBox(){
             MuiOutlinedInput:{
                 
                 input:{color:"#4a148c"},
-
-                styleOverrides:{
-                    root:{
-                        margin:"0.2em"
-                    }
-                }
+                root:{margin:"0.2em"}
+                
             }
         }
     })
    
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+
+    var loginAlert = Boolean(false)
 
     const [user, setUser] = useState({ 
         user_name : username,
@@ -70,6 +70,7 @@ export default function LoginBox(){
       const handleMouseUpPassword = (event) => {
         event.preventDefault();
       };
+      
       
     return(
         <ThemeProvider theme={myTheme}>
@@ -142,6 +143,7 @@ export default function LoginBox(){
                     color="success"
                     onClick={onSubmitHandler}
                     startIcon={<LoginIcon />}>Login</Button>
+  
                     
                 </FormControl>
 
